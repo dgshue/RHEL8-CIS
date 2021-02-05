@@ -3,9 +3,124 @@
   become: true
   vars:
       is_container: false
+      rhbase_firewall_allow_services:
+      rhbase_firewall_allow_ports:
+      rhbase_firewall_interfaces:
+      rhbase_start_services:
+        - sshd
+      rhbase_user_groups: []
+      rhbase_users: []
+      rhbase_repo_gpgcheck: false
+      rhbase_repo_installonly_limit: 2
+      rhbase_repo_proxy: http://proxy.uncg.edu:3128
+      rhbase_install_packages:
+        - vim-enhanced
+        - bind-utils
+      rhbase_dynamic_motd: false
+      rhbase_hosts_entry: true
+      rhbase_update: false
+      rhbase_selinux_booleans: []
+      rhbase_automatic_updates: true
+      rhbase_updates_type: security
+      rhbase_updates_debuglevel: 10
+      rhbase_updates_apply: true
+      rhbase_updates_download: true
+      rhbase_yum_cron_hourly_install_updates: true
+      rhbase_yum_cron_hourly_update_level: security
+      rhbase_updates_email_from: admin
+      rhbase_selinux_state: 'enforcing'
+
+
+      # cis-rhel8 vars
+      rhel8cis_notauto: false
+      rhel8cis_section1: true
+      rhel8cis_section2: true
+      rhel8cis_section3: true
+      rhel8cis_section4: false
+      rhel8cis_section5: false
+      rhel8cis_section6: false
+
+      rhel8cis_selinux_disable: false
+
+      rhel8cis_avahi_server: false
+      rhel8cis_cups_server: false
+      rhel8cis_dhcp_server: false
+      rhel8cis_ldap_server: false
+      rhel8cis_telnet_server: false
+      rhel8cis_nfs_server: false
+      rhel8cis_rpc_server: false
+      rhel8cis_ntalk_server: false
+      rhel8cis_rsyncd_server: false
+      rhel8cis_tftp_server: false
+      rhel8cis_rsh_server: false
+      rhel8cis_nis_server: false
+      rhel8cis_snmp_server: false
+      rhel8cis_squid_server: false
+      rhel8cis_smb_server: true
+      rhel8cis_dovecot_server: false
+      rhel8cis_httpd_server: false
+      rhel8cis_vsftpd_server: false
+      rhel8cis_named_server: false
+      rhel8cis_bind: false
+      rhel8cis_vsftpd: false
+      rhel8cis_httpd: true
+      rhel8cis_dovecot: false
+      rhel8cis_samba: true
+      rhel8cis_squid: false
+      rhel8cis_net_snmp: false
+
+      rhel8cis_is_mail_server: false
+
+      rhel8cis_is_router: false
+      rhel8cis_ipv6_required: false
+
+      rhel8cis_config_aide: true
+
+      rhel8cis_aide_cron:
+        cron_user: root
+        cron_file: /etc/crontab
+        aide_job: '/usr/sbin/aide --check'
+        aide_minute: 0
+        aide_hour: 5
+        aide_day: '*'
+        aide_month: '*'
+        aide_weekday: '*'
+
+      rhel8cis_selinux_pol: targeted
+
+      rhel8cis_xwindows_required: no
+
+      rhel8cis_openldap_clients_required: false
+      rhel8cis_telnet_required: false
+      rhel8cis_talk_required: false
+      rhel8cis_rsh_required: false
+      rhel8cis_ypbind_required: false
+
+      rhel8cis_time_synchronization: chrony
+
+      rhel8cis_time_synchronization_servers:
+          - masterclock1.uncg.edu
+          - masterclock2.uncg.edu
+
+      rhel8cis_host_allow:
+        - "0.0.0.0/0.0.0.0"
+
+      rhel8cis_firewall: firewalld
+
 
   roles:
-
-      - role: "{{ playbook_dir }}"
+      - role: rhel-base
+      - role: cis-rhel8
         rhel8cis_system_is_container: "{{ is_container | default(false) }}"
         rhel8cis_skip_for_travis: false
+
+
+- hosts: pefsonarmaster
+  become: true
+  #roles:
+  #  - role: ansible-role-perfsonar-archive
+  #  - role: ansible-role-perfsonar-maddash
+  #  - role: ansible-role-perfsonar-testpoint
+  #  - role: ansible-role-perfsonar-toolkit
+  #  - role: ansible-role-perfsonar-psconfig-publisher
+  #  - role: ansible-role-perfsonar-psconfig-web-admin

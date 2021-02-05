@@ -29,13 +29,13 @@
         lineinfile:
             dest: /etc/modprobe.d/CIS.conf
             regexp: "^(#)?install vfat(\\s|$)"
-            line: "install vfat /bin/true"
+            line: "#install vfat /bin/true"
             create: yes
 
       - name: "NOT SCORED | 1.1.1.2 | PATCH | Ensure mounting of vFAT filesystems is limited | Disable vFAT"
         modprobe:
             name: vfat
-            state: absent
+            state: present
         when:
             - ansible_connection != 'docker'
   when:

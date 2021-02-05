@@ -20,6 +20,7 @@
   dnf:
     name: "{{ rhsat_ca_url }}"
     state: present
+    disable_gpg_check: yes
     disable_plugin:
       - enabled_repos_upload
       - package_upload

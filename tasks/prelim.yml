@@ -279,7 +279,7 @@
 
 - name: Install Latest Katello from Satellite server
   dnf:
-    name: {{ rhsat_ca_url }}
+    name: "{{ rhsat_ca_url }}"
     state: present
     disable_plugin:
       - enabled_repos_upload

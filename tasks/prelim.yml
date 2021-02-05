@@ -296,10 +296,10 @@
 - name: Register with Satellite server
   redhat_subscription:
     state: present
-    org_id: {{ rhsat_orgid }}
-    activationkey: {{ rhsat_activationkey }}
-    server_hostname: {{ rhsat_server }}
-    rhsm_baseurl: {{ rhsat_baseurl }}
+    org_id: "{{ rhsat_orgid }}"
+    activationkey: "{{ rhsat_activationkey }}"
+    server_hostname: "{{ rhsat_server }}"
+    rhsm_baseurl: "{{ rhsat_baseurl }}"
     server_insecure: true
     auto_attach: true
 

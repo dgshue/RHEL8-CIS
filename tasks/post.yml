@@ -7,3 +7,19 @@
   ignore_errors: yes
   tags:
       - skip_ansible_lint
+
+- name: Update all packages
+  dnf:
+    name: "*"
+    state: latest
+
+
+- name: Unregister with Satellite server
+  redhat_subscription:
+    state: absent
+    org_id: {{ rhsat_orgid }}
+    activationkey: {{ rhsat_activationkey }}
+    server_hostname: {{ rhsat_server }}
+    rhsm_baseurl: {{ rhsat_baseurl }}
+    server_insecure: true
+    auto_attach: true
